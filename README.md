@@ -3,7 +3,7 @@ jython-solrmarc
 
 Using SolrMarc with Jython. 
 
-This is a basic setup for working with [http://code.google.com/p/solrmarc/|SolrMarc] using Jython.   
+This is a basic setup for working with [SolrMarc|http://code.google.com/p/solrmarc/] using Jython.   
 
 *Build solr-marc
 ** cd stanford-solr-marc
