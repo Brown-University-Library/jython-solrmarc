@@ -1,26 +1,16 @@
 """
 Use SolrMarc from Jython.  Basic example.
+
+Increase heap size:
+jython -J-Xmx4096
+
 """
 import glob
 import sys
 import os
 
-#Base directory from project
-BASE = os.path.dirname(os.path.abspath(__file__))
-#Directories containing jars.
-libs = [
-		os.path.join(BASE, 'solrmarc/dist'),
-		os.path.join(BASE, 'solrmarc/lib'),
-		os.path.join(BASE, 'lib')
-]
-jars = []
-for path in libs:
-	#Get all the jars in lib and append to sys.path
-	jars += glob.glob('%s/*.jar' % path)
-for jar in jars:
-	pth = os.path.join(BASE, jar)
-	print>>sys.stderr, pth
-	sys.path.append(pth)
+#BASE_DIR directory from project
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 #Add Java classes
 from java.lang import RuntimeException, String
@@ -34,14 +24,12 @@ from org.marc4j import ErrorHandler
 #SolrMarc
 from org.solrmarc.index import SolrIndexer
 from org.solrmarc.tools import MarcUtils, CallNumUtils, SolrMarcIndexerException
-
-#JSON
-from net.sf.json import JSONObject
+from org.solrmarc.tools.MarcUtils import *
 
 #Properties files.  These are default Blacklight properties files. 
-marc_prop = os.path.join(BASE, 'config/index.properties')
+marc_prop = os.path.join(BASE_DIR, 'config/index.properties')
 #This needs to be a list
-translation_maps = [os.path.join(BASE, 'config/translation_maps')]
+translation_maps = [os.path.join(BASE_DIR, 'config/translation_maps')]
 
 #A sample indexer.  Methods here overide or extend methods in SolrIndexer.
 class MyIndexer(SolrIndexer):
@@ -73,13 +61,8 @@ while (reader.hasNext()):
 	record = reader.next()
 	#Our getRecordId method.
 	print idx.getRecordId(record)
-	try:
-		d = idx.createFldNames2ValsMap(record, error_handle)
-		for field in d.entrySet():
-			print field.key, field.value
-		#Print the records as JSON for demonstration purposes.  These could easily be posted to Solr versions > 1.4.
-		j = JSONObject()
-		j.putAll(d)
-		print(j)
-	except SolrMarcIndexerException, e:
-		raise
+	d = idx.createFldNames2ValsMap(record, error_handle)
+	for field in d.entrySet():
+		#Print the solr field and value.
+		print field.key, field.value
+
