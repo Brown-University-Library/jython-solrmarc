@@ -7,12 +7,13 @@ This is a basic setup for working with [SolrMarc](http://code.google.com/p/solrm
 
 
 * Update and build solrmarc
- * cd solrmarc
- * git pull
- * ant
+ $ git submodule init
+ $ git submodule update
+ $ cd solrmarc
+ $ ant
 
 * Set your CLASSPATH
  * source .set_env.sh
 
-* Run the sample indexing script:
+* Run the sample script:
  * jython index.py data/iii_sample.mrc
