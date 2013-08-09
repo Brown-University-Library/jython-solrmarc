@@ -16,7 +16,10 @@ $ ant
 
 * Set your CLASSPATH
  
-    ```$ source .set_env.sh```
+```
+$ cd ..
+$ source .set_env.sh
+```
 
 * Run the sample script:
 
