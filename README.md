@@ -14,8 +14,7 @@ $ cd solrmarc
 $ ant
 ```
 
-* Set your CLASSPATH
- 
+* Set your CLASSPATH 
 ```
 $ cd ..
 $ source .set_env.sh
