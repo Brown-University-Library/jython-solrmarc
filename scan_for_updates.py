@@ -31,6 +31,8 @@ logging.basicConfig(level=logging.WARNING)
 
 #Default local directory to store written MARC records.  Pass in -o to change.  
 OUTPUT_DIR = 'to_load'
+if not os.path.exists(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
 
 def read_file(infile):
     inpath, inname = os.path.split(infile)
